@@ -1,33 +1,23 @@
 import React from 'react';
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
 
 const TrailList = ({trails}) => {
 
-
-    /*
-    "id": 55,
-    "name": "Baltistan Peak",
-    "location": "Siachen Karakoram",
-    "distance": 336,
-    "elevation_gain": 6425,
-    "created_at": "2022-07-21T16:45:15.397Z",
-    "updated_at": "2022-07-21T16:45:15.397Z"
-    */
-
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
           field: 'name',
           headerName: 'Route',
-          width: 150,
+          width: 170,
           editable: true,
         },
         {
           field: 'location',
           headerName: 'Location',
-          width: 150,
+          width: 170,
           editable: true,
         },
         {
@@ -40,23 +30,31 @@ const TrailList = ({trails}) => {
         {
           field: 'elevation_gain',
           headerName: 'Elevation Gain',
-          sortable: false,
+          type: 'number',
+          sortable: true,
           width: 160,
         },
     ];
 
+    let navigate = useNavigate();
+    const routeChange = () => {
+        alert("i'm an alert!")
+        let path = `newtrail`;
+        navigate(path);
+    }
 
     if (!trails) return <h2>Loading...</h2>
 
     return(
-        <Box sx={{ height: 400, width: '100%' }}>
+        <Box sx={{ height: 630, width: '100%' }}>
             <DataGrid
                 rows={trails}
                 columns={columns}
-                pageSize={5}
-                rowsPerPageOptions={[5]}
-                checkboxSelection
-                disableSelectionOnClick
+                pageSize={10}
+                rowsPerPageOptions={[10]}
+                //checkboxSelection
+                //disableSelectionOnClick
+                onClick={routeChange}
             />
       </Box>
     )
