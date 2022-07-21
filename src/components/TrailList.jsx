@@ -38,7 +38,6 @@ const TrailList = ({trails}) => {
 
     let navigate = useNavigate();
     const routeChange = () => {
-        alert("i'm an alert!")
         let path = `newtrail`;
         navigate(path);
     }
@@ -52,9 +51,7 @@ const TrailList = ({trails}) => {
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
-                //checkboxSelection
-                //disableSelectionOnClick
-                onClick={routeChange}
+                onCellClick={routeChange}
             />
       </Box>
     )
