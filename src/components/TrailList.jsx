@@ -38,7 +38,7 @@ const TrailList = ({trails}) => {
 
     let navigate = useNavigate();
     const routeChange = () => {
-        let path = `newtrail`;
+        let path = `athlete-list`;
         navigate(path);
     }
 
