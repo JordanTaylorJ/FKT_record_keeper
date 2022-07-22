@@ -4,19 +4,20 @@ import { useNavigate, useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
-const AthleteList = () => {
+const AthleteList = ({trails}) => {
 
     const [athletes, setAthletes] = useState([]);
     let location = useLocation();
 
-    useEffect((id) => {
-        console.log(location);
-        fetch(`http://localhost:9292/trails/${location.state.id}`)
-        .then((r) => r.json())
-        .then((trail) => setAthletes(trail.athletes));
-    }, []);
+    // useEffect((id) => {
+    //     console.log(location);
+    //     fetch(`http://localhost:9292/trails/${location.state.id}`)
+    //     .then((r) => r.json())
+    //     .then((trail) => setAthletes(trail.athletes));
+    // }, []);
 
     const handleAddAthlete = (newAthlete) => {
+        console.log("before fetch", newAthlete)
         fetch("http://localhost:9292/athletes", {
             method: 'POST',
             headers: { 
@@ -25,7 +26,15 @@ const AthleteList = () => {
             body: JSON.stringify(newAthlete),
           })
           .then(r => r.json())
-          .then((data) => setAthletes([...athletes, data]))
+          .then((data) => {
+            debugger
+            const theTrail = find the trail
+            //new trail = [...theTrail, athletes: [... theTrail.athletes, data]]
+            //map through trails  replace the one changed 
+            
+            const newTrails = [...trails,]
+            setTrails([...trails])
+        })
     }
     console.log("after submit", athletes)
 
@@ -51,15 +60,16 @@ const AthleteList = () => {
           editable: true,
           },
     ];
+    if (trails.length > 0) {
 
     return(
         <div>   
-            <h1> Athlete List </h1>
+            <h1> Athlete List {location.state.id} </h1>
             <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
     
             <Box sx={{ height: 630, width: '100%' }}>
                 <DataGrid
-                    rows={athletes}
+                    rows={trails.find(trail => trail.id === location.state.id).athletes}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
@@ -68,7 +78,8 @@ const AthleteList = () => {
             </Box>
         </div>
     )
-
+    }
+    else return null
 }
 
 export default AthleteList;

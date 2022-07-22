@@ -5,7 +5,7 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
     const [newAthlete, setNewAthlete] = useState({
         name: "",
         time: 0,
-        trailId: trailId,
+        trail_id: trailId,
         unsupported: false
     });
 
@@ -19,12 +19,12 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log("submit clicked inside NewAthlete", newAthlete)
         handleAddAthlete(newAthlete)
+        console.log("submit clicked inside NewAthlete", newAthlete)
         setNewAthlete({
             name: "",
             time: 0,
-            trailId: trailId,
+            trail_id: trailId,
             unsupported: false
         })
     };

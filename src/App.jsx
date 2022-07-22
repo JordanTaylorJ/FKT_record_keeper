@@ -7,7 +7,9 @@ import Athlete from './components/AthleteList';
 
 function App() {
 
-  const [trails, setTrails] = useState([]);
+  const [trails, setTrails] = useState([
+    //{athletes: []}
+  ]);
 
   useEffect(() => {
       fetch('http://localhost:9292/trails')
@@ -19,7 +21,7 @@ function App() {
     <Router className='App'>
       <Routes>
         <Route path="/" element={<TrailList trails={trails}/>} />
-        <Route path="athlete-list" element={<AthleteList/>}/>
+        <Route path="athlete-list" element={<AthleteList trails={trails}/>}/>
       </Routes>
     </Router>
   );
