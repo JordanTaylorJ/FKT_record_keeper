@@ -2,7 +2,7 @@ import React from 'react';
 
 const NewAthlete = () => {
     return(
-        <p> new athlere here !!! i am being added !</p>
+        <p> new athlete here !!! i am being added !</p>
     )
 }
 

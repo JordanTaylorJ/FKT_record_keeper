@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -37,9 +37,10 @@ const TrailList = ({trails}) => {
     ];
 
     let navigate = useNavigate();
-    const routeChange = () => {
-        let path = `athlete-list`;
-        navigate(path);
+    const routeChange = (e) => {
+      console.log(e.value)
+      let path = `athlete-list`;
+      navigate(path, { state: { id: e.value } } );
     }
 
     if (!trails) return <h2>Loading...</h2>

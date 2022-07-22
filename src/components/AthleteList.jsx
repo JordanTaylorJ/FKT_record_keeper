@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import NewAthlete from './NewAthlete';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
 const AthleteList = () => {
 
     const [athletes, setAthletes] = useState([]);
+    let location = useLocation();
 
     useEffect((id) => {
-        fetch(`http://localhost:9292/athletes`)
+        console.log(location);
+        fetch(`http://localhost:9292/trails/${location.state.id}`)
         .then((r) => r.json())
-        .then((athletes) => setAthletes(athletes));
+        .then((trail) => setAthletes(trail.athletes));
     }, []);
 
     const columns = [
