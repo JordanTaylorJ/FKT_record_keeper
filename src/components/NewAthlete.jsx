@@ -4,13 +4,12 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
 
     const [newAthlete, setNewAthlete] = useState({
         name: "",
-        time: "",
-        trail: trailId,
-        supported: ""
+        time: 0,
+        trailId: trailId,
+        unsupported: false
     });
 
     const handleChange = (e) => {
-        
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
@@ -22,6 +21,12 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
         e.preventDefault();
         console.log("submit clicked inside NewAthlete", newAthlete)
         handleAddAthlete(newAthlete)
+        setNewAthlete({
+            name: "",
+            time: 0,
+            trailId: trailId,
+            unsupported: false
+        })
     };
 
     return(
@@ -34,8 +39,8 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
             <label> Time:
                 <input type="text" name="time" value={newAthlete.time} onChange={handleChange} />
             </label>
-            <label> Supported:
-                <input type="checkbox" name="supported" value={newAthlete.supported} onChange={handleChange} />
+            <label> Unsupported:
+                <input type="checkbox" name="unsupported" value={newAthlete.unsupported} onChange={handleChange} />
             </label>
             <input type="submit" value="Submit" />
         </form>

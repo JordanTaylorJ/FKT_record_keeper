@@ -17,7 +17,6 @@ const AthleteList = () => {
     }, []);
 
     const handleAddAthlete = (newAthlete) => {
-        console.log("i;m handled")
         fetch("http://localhost:9292/athletes", {
             method: 'POST',
             headers: { 
@@ -46,10 +45,10 @@ const AthleteList = () => {
           editable: true,
         },
         {
-            field: 'suported',
-            headerName: 'Style',
-            width: 110,
-            editable: true,
+          field: 'suported',
+          headerName: 'Style',
+          width: 110,
+          editable: true,
           },
     ];
 
