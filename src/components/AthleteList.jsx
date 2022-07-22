@@ -45,12 +45,18 @@ const AthleteList = () => {
           width: 110,
           editable: true,
         },
+        {
+            field: 'suported',
+            headerName: 'Style',
+            width: 110,
+            editable: true,
+          },
     ];
 
     return(
         <div>   
             <h1> Athlete List </h1>
-            <NewAthlete handleAddAthlete={handleAddAthlete}/>
+            <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
     
             <Box sx={{ height: 630, width: '100%' }}>
                 <DataGrid

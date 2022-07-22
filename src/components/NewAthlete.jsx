@@ -1,15 +1,20 @@
 import React, {useState} from 'react';
 
-const NewAthlete = ({handleAddAthlete}) => {
+const NewAthlete = ({handleAddAthlete, trailId}) => {
 
     const [newAthlete, setNewAthlete] = useState({
         name: "",
         time: "",
-        trail: "",
+        trail: trailId,
+        supported: ""
     });
 
     const handleChange = (e) => {
-        setNewAthlete({...newAthlete, [e.target.name]:e.target.value})
+        
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        setNewAthlete({...newAthlete, [name]:value})
         console.log(newAthlete)
     };
 
@@ -29,8 +34,8 @@ const NewAthlete = ({handleAddAthlete}) => {
             <label> Time:
                 <input type="text" name="time" value={newAthlete.time} onChange={handleChange} />
             </label>
-            <label> Trail:
-                <input type="text" name="trail" value={newAthlete.trail} onChange={handleChange} />
+            <label> Supported:
+                <input type="checkbox" name="supported" value={newAthlete.supported} onChange={handleChange} />
             </label>
             <input type="submit" value="Submit" />
         </form>
