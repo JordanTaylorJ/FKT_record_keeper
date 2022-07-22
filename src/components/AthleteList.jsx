@@ -16,6 +16,20 @@ const AthleteList = () => {
         .then((trail) => setAthletes(trail.athletes));
     }, []);
 
+    const handleAddAthlete = (newAthlete) => {
+        console.log("i;m handled")
+        fetch("http://localhost:9292/athletes", {
+            method: 'POST',
+            headers: { 
+              "Content-Type": "application/json", 
+            },
+            body: JSON.stringify(newAthlete),
+          })
+          .then(r => r.json())
+          .then((data) => setAthletes([...athletes, data]))
+    }
+    console.log("after submit", athletes)
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -35,8 +49,8 @@ const AthleteList = () => {
 
     return(
         <div>   
-            <p>athlete times will list here !  !!</p>
-            <NewAthlete />
+            <h1> Athlete List </h1>
+            <NewAthlete handleAddAthlete={handleAddAthlete}/>
     
             <Box sx={{ height: 630, width: '100%' }}>
                 <DataGrid

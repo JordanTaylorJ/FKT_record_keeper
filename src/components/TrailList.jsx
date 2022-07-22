@@ -46,6 +46,8 @@ const TrailList = ({trails}) => {
     if (!trails) return <h2>Loading...</h2>
 
     return(
+      <div>
+        <h1> Trail List </h1>
         <Box sx={{ height: 630, width: '100%' }}>
             <DataGrid
                 rows={trails}
@@ -54,7 +56,8 @@ const TrailList = ({trails}) => {
                 rowsPerPageOptions={[10]}
                 onCellClick={routeChange}
             />
-      </Box>
+        </Box>
+      </div>
     )
 }
 
