@@ -28,12 +28,12 @@ const AthleteList = ({trails}) => {
           .then(r => r.json())
           .then((data) => {
             debugger
-            const theTrail = find the trail
+            //const thisTrail = trails.find(trail => trail.id === location.state.id)
             //new trail = [...theTrail, athletes: [... theTrail.athletes, data]]
             //map through trails  replace the one changed 
             
-            const newTrails = [...trails,]
-            setTrails([...trails])
+            //const newTrails = [...trails,]
+            //setTrails([...trails])
         })
     }
     console.log("after submit", athletes)
