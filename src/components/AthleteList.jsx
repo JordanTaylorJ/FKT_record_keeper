@@ -17,7 +17,6 @@ const AthleteList = ({trails, setTrails}) => {
     // }, []);
 
     const handleAddAthlete = (newAthlete) => {
-        console.log("before fetch", newAthlete)
         fetch("http://localhost:9292/athletes", {
             method: 'POST',
             headers: { 
@@ -26,25 +25,34 @@ const AthleteList = ({trails, setTrails}) => {
             body: JSON.stringify(newAthlete),
           })
           .then(r => r.json())
-          .then((trail) => setAthletes(trail.athletes));
-          //.then((newTrail) => handleAddNewTrail(newTrail))
+          .then((data) => setAthletes(data))
+          .then((data) => handleAddNewTrail(data))
     }
-    
-    /*
-    const handleAddNewTrail = (newTrail) => {
-      let trailData;
-      if (trail) {
-        trailData
-      }
-    
+
+
+    const handleAddNewTrail = () => {
+      console.log("before submit", athletes, trails)
+      const newTrails = trails.map((trail) => { 
+        if (trail.id === location.state.id)
+          return {
+            ...trail, 
+            athletes: athletes 
+          } 
+        else {
+            return trail
+          }
+      })
+      setTrails(newTrails)
+      setAthletes([])
     }
-    */
+    console.log("after submit", athletes, trails)
+
     //debugger
     //const trailId = trails.find(trail => trail.id === location.state.id)
     //const newTrail = (...trailId, athletes: data)
     //setTrails(trails.map(trail) => if (trail.id === trailId)  )
 
-    console.log("after submit", athletes)
+    
     //newTrail = [...thisTrail, athletes: [... theTrail.athletes, data]]
     //this trail =trails.map
     //map through trails  replace the one changed 
