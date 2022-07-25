@@ -21,7 +21,7 @@ function App() {
     <Router className='App'>
       <Routes>
         <Route path="/" element={<TrailList trails={trails}/>} />
-        <Route path="athlete-list" element={<AthleteList trails={trails}/>}/>
+        <Route path="athlete-list" element={<AthleteList trails={trails} setTrails={setTrails}/>}/>
       </Routes>
     </Router>
   );

@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import NewAthlete from './NewAthlete';
 import { useNavigate, useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
-const AthleteList = ({trails}) => {
+const AthleteList = ({trails, setTrails}) => {
 
     const [athletes, setAthletes] = useState([]);
     let location = useLocation();
@@ -26,17 +26,31 @@ const AthleteList = ({trails}) => {
             body: JSON.stringify(newAthlete),
           })
           .then(r => r.json())
-          .then((data) => {
-            debugger
-            //const thisTrail = trails.find(trail => trail.id === location.state.id)
-            //new trail = [...theTrail, athletes: [... theTrail.athletes, data]]
-            //map through trails  replace the one changed 
-            
-            //const newTrails = [...trails,]
-            //setTrails([...trails])
-        })
+          .then((trail) => setAthletes(trail.athletes));
+          //.then((newTrail) => handleAddNewTrail(newTrail))
     }
+    
+    /*
+    const handleAddNewTrail = (newTrail) => {
+      let trailData;
+      if (trail) {
+        trailData
+      }
+    
+    }
+    */
+    //debugger
+    //const trailId = trails.find(trail => trail.id === location.state.id)
+    //const newTrail = (...trailId, athletes: data)
+    //setTrails(trails.map(trail) => if (trail.id === trailId)  )
+
     console.log("after submit", athletes)
+    //newTrail = [...thisTrail, athletes: [... theTrail.athletes, data]]
+    //this trail =trails.map
+    //map through trails  replace the one changed 
+    
+    //const newTrails = [...trails,]
+    //setTrails([...trails])
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
