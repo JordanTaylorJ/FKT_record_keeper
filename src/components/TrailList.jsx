@@ -1,5 +1,5 @@
 import React from 'react';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -26,7 +26,7 @@ const TrailList = ({trails}) => {
     const columns = [
         { 
           field: 'id', 
-          headerName: 'ID',  
+          headerName: 'Athletes',  
           width: 160,
           sortable: false,
           renderCell: renderDetailsButton,
@@ -65,7 +65,6 @@ const TrailList = ({trails}) => {
     let navigate = useNavigate();
     const routeChange = (e) => {
       console.log(e.target.value)
-      //debugger
       let path = `athlete-list`;
       navigate(path, { state: { id: e.target.value } } );
     }
@@ -81,7 +80,6 @@ const TrailList = ({trails}) => {
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
-                //onCellClick={routeChange}
             />
         </Box>
       </div>

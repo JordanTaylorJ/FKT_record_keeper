@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import NewAthlete from './NewAthlete';
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 
@@ -8,15 +8,6 @@ const AthleteList = ({trails, setTrails}) => {
 
     const [athletes, setAthletes] = useState([]);
     let location = useLocation();
-    //debugger 
-    //const newAthletes = trails.find(trail => trail.id == location.state.id).athletes
-    //setAthletes(newAthletes)
-    // useEffect((id) => {
-    //     console.log(location);
-    //     fetch(`http://localhost:9292/trails/${location.state.id}`)
-    //     .then((r) => r.json())
-    //     .then((trail) => setAthletes(trail.athletes));
-    // }, []);
 
     const handleAddAthlete = (newAthlete) => {
         fetch("http://localhost:9292/athletes", {
@@ -95,8 +86,7 @@ const AthleteList = ({trails, setTrails}) => {
     
             <Box sx={{ height: 630, width: '100%' }}>
                 <DataGrid
-                    //rows={trails.find(trail => trail.id === location.state.id).athletes}
-                    rows = {athletes}
+                    rows = {trails.find(trail => trail.id == location.state.id).athletes}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
