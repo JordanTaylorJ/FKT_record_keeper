@@ -25,13 +25,14 @@ const AthleteList = ({trails, setTrails}) => {
             body: JSON.stringify(newAthlete),
           })
           .then(r => r.json())
-          .then((data) => setAthletes(data))
+          //.then((data) => setAthletes(data))
           .then((data) => handleAddNewTrail(data))
     }
 
 
-    const handleAddNewTrail = () => {
-      console.log("before submit", athletes, trails)
+    const handleAddNewTrail = (data) => {
+      setAthletes(data)
+      console.log("before submit athletes", athletes, "trails", trails)
       const newTrails = trails.map((trail) => { 
         if (trail.id === location.state.id)
           return {
@@ -45,7 +46,7 @@ const AthleteList = ({trails, setTrails}) => {
       setTrails(newTrails)
       setAthletes([])
     }
-    console.log("after submit", athletes, trails)
+    console.log("after submit athletes", athletes, "trails", trails)
 
     //debugger
     //const trailId = trails.find(trail => trail.id === location.state.id)

@@ -6,6 +6,22 @@ import { DataGrid } from '@mui/x-data-grid';
 
 const TrailList = ({trails}) => {
 
+  const renderDetailsButton = (params) => {
+    return (
+      <strong>
+          <button
+              variant="contained"
+              color="primary"
+              size="small"
+              style={{ marginLeft: 16 }}
+              onClick={routeChange}
+          > 
+              Athlete Info
+          </button>
+      </strong>
+    )
+  }
+
     const columns = [
         { field: 'id', headerName: 'ID', width: 90 },
         {
@@ -34,7 +50,17 @@ const TrailList = ({trails}) => {
           sortable: true,
           width: 160,
         },
+        {
+          field: 'athletes',
+          headerName: 'Athletes',
+          sortable: false,
+          width: 160,
+          renderCell: renderDetailsButton,
+          disableClickEventBubbling: true,
+        },
     ];
+
+
 
     let navigate = useNavigate();
     const routeChange = (e) => {
@@ -54,7 +80,7 @@ const TrailList = ({trails}) => {
                 columns={columns}
                 pageSize={10}
                 rowsPerPageOptions={[10]}
-                onCellClick={routeChange}
+                //onCellClick={routeChange}
             />
         </Box>
       </div>
