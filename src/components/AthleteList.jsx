@@ -8,7 +8,9 @@ const AthleteList = ({trails, setTrails}) => {
 
     const [athletes, setAthletes] = useState([]);
     let location = useLocation();
-
+    //debugger 
+    //const newAthletes = trails.find(trail => trail.id == location.state.id).athletes
+    //setAthletes(newAthletes)
     // useEffect((id) => {
     //     console.log(location);
     //     fetch(`http://localhost:9292/trails/${location.state.id}`)
@@ -83,6 +85,7 @@ const AthleteList = ({trails, setTrails}) => {
           editable: true,
           },
     ];
+    
     if (trails.length > 0) {
 
     return(
@@ -92,11 +95,11 @@ const AthleteList = ({trails, setTrails}) => {
     
             <Box sx={{ height: 630, width: '100%' }}>
                 <DataGrid
-                    rows={trails.find(trail => trail.id === location.state.id).athletes}
+                    //rows={trails.find(trail => trail.id === location.state.id).athletes}
+                    rows = {athletes}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
-                    //onCellClick={routeChange}
                 />
             </Box>
         </div>

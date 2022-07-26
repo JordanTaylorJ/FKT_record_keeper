@@ -10,6 +10,7 @@ const TrailList = ({trails}) => {
     return (
       <strong>
           <button
+              value={params.row.id}
               variant="contained"
               color="primary"
               size="small"
@@ -23,7 +24,14 @@ const TrailList = ({trails}) => {
   }
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
+        { 
+          field: 'id', 
+          headerName: 'ID',  
+          width: 160,
+          sortable: false,
+          renderCell: renderDetailsButton,
+          disableClickEventBubbling: true
+        },
         {
           field: 'name',
           headerName: 'Route',
@@ -50,23 +58,16 @@ const TrailList = ({trails}) => {
           sortable: true,
           width: 160,
         },
-        {
-          field: 'athletes',
-          headerName: 'Athletes',
-          sortable: false,
-          width: 160,
-          renderCell: renderDetailsButton,
-          disableClickEventBubbling: true,
-        },
     ];
 
 
 
     let navigate = useNavigate();
     const routeChange = (e) => {
-      console.log(e.value)
+      console.log(e.target.value)
+      //debugger
       let path = `athlete-list`;
-      navigate(path, { state: { id: e.value } } );
+      navigate(path, { state: { id: e.target.value } } );
     }
 
     if (!trails) return <h2>Loading...</h2>
