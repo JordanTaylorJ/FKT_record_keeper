@@ -20,7 +20,17 @@ const AthleteList = ({trails, setTrails}) => {
                 style={{ marginLeft: 16 }}
                 //onClick={}
             > 
-                Remove Athlete
+                X
+            </button>
+            <button
+                value={params.row.id}
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                //onClick={}
+            > 
+                Edit
             </button>
         </strong>
       )
