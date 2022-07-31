@@ -9,32 +9,15 @@ const AthleteList = ({trails, setTrails}) => {
     const [athletes, setAthletes] = useState([]);
     let location = useLocation();
 
-    const renderDeleteButton = (params) => {
-      return (
-        <strong>
-            <button
-                value={params.row.id}
-                variant="contained"
-                color="primary"
-                size="small"
-                style={{ marginLeft: 16 }}
-                //onClick={}
-            > 
-                X
-            </button>
-            <button
-                value={params.row.id}
-                variant="contained"
-                color="primary"
-                size="small"
-                style={{ marginLeft: 16 }}
-                //onClick={}
-            > 
-                Edit
-            </button>
-        </strong>
-      )
+    const handleDeleteAthlete = (e) => {
+      console.log(e.target.value)
+      fetch(`http://localhost:9292/athletes/${e.target.value}`, {
+        method: 'DELETE',
+      })
+      .then((r) => r.json())
+      .then((data) => console.log("THIS WAS DELETED", data))
     }
+    //Delete works!!  returns the seleted object. now find and delete and reset state
 
     const handleAddAthlete = (newAthlete) => {
         fetch("http://localhost:9292/athletes", {
@@ -81,6 +64,35 @@ const AthleteList = ({trails, setTrails}) => {
     //const newTrails = [...trails,]
     //setTrails([...trails])
 
+
+
+    const renderDeleteButton = (params) => {
+      return (
+        <strong>
+            <button
+                value={params.row.id}
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                onClick={handleDeleteAthlete}
+            > 
+                x
+            </button>
+            <button
+                value={params.row.id}
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                //onClick={editAthlete}
+            > 
+                Edit
+            </button>
+        </strong>
+      )
+    }
+
     const columns = [
         { 
           field: 'id', 
@@ -111,9 +123,10 @@ const AthleteList = ({trails, setTrails}) => {
           },
     ];
     
+
     if (trails.length > 0) {
 
-    return(
+      return(
         <div>   
             <h1> Athlete List {location.state.id} </h1>
             <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
@@ -127,7 +140,7 @@ const AthleteList = ({trails, setTrails}) => {
                 />
             </Box>
         </div>
-    )
+      )
     }
     else return null
 }
