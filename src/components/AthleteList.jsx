@@ -9,6 +9,23 @@ const AthleteList = ({trails, setTrails}) => {
     const [athletes, setAthletes] = useState([]);
     let location = useLocation();
 
+    const renderDeleteButton = (params) => {
+      return (
+        <strong>
+            <button
+                value={params.row.id}
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                //onClick={}
+            > 
+                Remove Athlete
+            </button>
+        </strong>
+      )
+    }
+
     const handleAddAthlete = (newAthlete) => {
         fetch("http://localhost:9292/athletes", {
             method: 'POST',
@@ -55,7 +72,14 @@ const AthleteList = ({trails, setTrails}) => {
     //setTrails([...trails])
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 90 },
+        { 
+          field: 'id', 
+          headerName: 'Remove Athlete',  
+          width: 160,
+          sortable: false,
+          renderCell: renderDeleteButton,
+          disableClickEventBubbling: true
+        },
         {
           field: 'name',
           headerName: 'Name',
