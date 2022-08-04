@@ -16,6 +16,7 @@ export default function NavBar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Fastest Known Time Records
           </Typography>
+          <Button color="inherit" component={Link} to=''>Home</Button>
           <Button color="inherit" component={Link} to='trails'>Trails</Button>
         </Toolbar>
       </AppBar>
