@@ -3,6 +3,7 @@ import NewAthlete from './NewAthlete';
 import { useLocation } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import EditAthleteData from './EditAthleteData';
 
 const AthleteList = ({trails, setTrails}) => {
 
@@ -10,7 +11,6 @@ const AthleteList = ({trails, setTrails}) => {
     let location = useLocation();
 
     const handleDeleteAthlete = (e) => {
-      console.log(e.target.value)
       fetch(`http://localhost:9292/athletes/${e.target.value}`, {
         method: 'DELETE',
       })
@@ -28,26 +28,23 @@ const AthleteList = ({trails, setTrails}) => {
             body: JSON.stringify(newAthlete),
           })
           .then(r => r.json())
-          //.then((data) => setAthletes(data))
-          .then((data) => handleAddNewTrail(data))
+          .then((data) => handleAddAthleteToTrails(data))
     }
 
 
-    const handleAddNewTrail = (data) => {
-      setAthletes(data)
-      console.log("before submit athletes", athletes, "trails", trails)
+    const handleAddAthleteToTrails = (data) => {
+      console.log("trails", trails)
       const newTrails = trails.map((trail) => { 
         if (trail.id === location.state.id)
-          return {
+          return console.log("heyyo", {
             ...trail, 
             athletes: athletes 
-          } 
+          })
         else {
             return trail
           }
       })
       setTrails(newTrails)
-      setAthletes([])
     }
     console.log("after submit athletes", athletes, "trails", trails)
 
@@ -66,7 +63,7 @@ const AthleteList = ({trails, setTrails}) => {
 
 
 
-    const renderDeleteButton = (params) => {
+    const renderButtons = (params) => {
       return (
         <strong>
             <button
@@ -85,7 +82,7 @@ const AthleteList = ({trails, setTrails}) => {
                 color="primary"
                 size="small"
                 style={{ marginLeft: 16 }}
-                //onClick={editAthlete}
+                //onClick={editAthleteData}
             > 
                 Edit
             </button>
@@ -99,7 +96,7 @@ const AthleteList = ({trails, setTrails}) => {
           headerName: 'Remove Athlete',  
           width: 160,
           sortable: false,
-          renderCell: renderDeleteButton,
+          renderCell: renderButtons,
           disableClickEventBubbling: true
         },
         {
@@ -130,7 +127,8 @@ const AthleteList = ({trails, setTrails}) => {
         <div>   
             <h1> Athlete List {location.state.id} </h1>
             <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
-    
+            {//<EditAthleteData/>
+            }
             <Box sx={{ height: 630, width: '100%' }}>
                 <DataGrid
                     rows = {trails.find(trail => trail.id == location.state.id).athletes}
