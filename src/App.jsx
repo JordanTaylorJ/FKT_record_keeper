@@ -3,7 +3,8 @@ import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import Home from './components/Home';
 import TrailList from './components/TrailList';
 import AthleteList from './components/AthleteList';
-import Athlete from './components/AthleteList';
+import NavBar from './components/NavBar';
+
 
 function App() {
 
@@ -19,9 +20,11 @@ function App() {
 
   return (
     <Router className='App'>
+      <NavBar/>
       <Routes>
-        <Route path="/" element={<TrailList trails={trails}/>} />
-        <Route path="athlete-list" element={<AthleteList trails={trails} setTrails={setTrails}/>}/>
+        <Route path="/" element={<Home/>}/>
+        <Route path="trails" element={<TrailList trails={trails}/>} />
+        <Route path="trails/athletes" element={<AthleteList trails={trails} setTrails={setTrails}/>}/>
       </Routes>
     </Router>
   );

@@ -64,7 +64,7 @@ const TrailList = ({trails}) => {
 
     let navigate = useNavigate();
     const routeChange = (e) => {
-      let path = `athlete-list`;
+      let path = `athletes`;
       navigate(path, { state: { id: e.target.value } } );
     }
 
