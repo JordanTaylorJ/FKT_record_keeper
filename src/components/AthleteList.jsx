@@ -19,11 +19,22 @@ const AthleteList = ({trails, setTrails}) => {
       })
       .then((r) => r.json())
       //.then((data) => console.log("THIS WAS DELETED", data))
-      .then((athlete) => handleDeleteAthleteTrails(athlete))
+      .then((deletedAthlete) => handleDeleteAthleteTrails(deletedAthlete))
     }
 
-    const handleDeleteAthleteTrails = (athlete) => {
-
+    const handleDeleteAthleteTrails = (deletedAthlete) => {
+      const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
+      const updateAthletes = thisTrailAthletes.map((athlete) => {if (athlete !== deletedAthlete) return athlete})
+      const newTrails = trails.map((trail) => { 
+        if (trail.id === deletedAthlete.trail_id)
+          return ({
+            ...trail, 
+            athletes: [updateAthletes]
+          }); else {
+            return trail;
+          }
+      })
+      setTrails(newTrails)
     }
     //Delete works!!  returns the seleted object. now find and delete and reset state
 
@@ -43,13 +54,13 @@ const AthleteList = ({trails, setTrails}) => {
     const handleAddAthleteToTrails = (athlete) => {
       console.log("data", athlete)
       const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
-      const updateAthlete = [...thisTrailAthletes, athlete]
+      const updateAthletes = [...thisTrailAthletes, athlete]
       const newTrails = trails.map((trail) => { 
         if (trail.id === athlete.trail_id)
           //return (trail.athletes.push(athlete))
           return ({
             ...trail, 
-            athletes: [updateAthlete]
+            athletes: [updateAthletes]
           }); else {
             return trail;
           }
