@@ -7,7 +7,10 @@ import EditAthleteData from './EditAthleteData';
 
 const AthleteList = ({trails, setTrails}) => {
 
-    const [athletes, setAthletes] = useState([]);
+    //const [athletes, setAthletes] = useState([]);
+    //let theseOnes = trails.find(trail => trail.id == location.state.id).athletes
+    //setAthletes(theseOnes)
+
     let location = useLocation();
 
     const handleDeleteAthlete = (e) => {
@@ -15,7 +18,12 @@ const AthleteList = ({trails, setTrails}) => {
         method: 'DELETE',
       })
       .then((r) => r.json())
-      .then((data) => console.log("THIS WAS DELETED", data))
+      //.then((data) => console.log("THIS WAS DELETED", data))
+      .then((athlete) => handleDeleteAthleteTrails(athlete))
+    }
+
+    const handleDeleteAthleteTrails = (athlete) => {
+
     }
     //Delete works!!  returns the seleted object. now find and delete and reset state
 
@@ -28,25 +36,28 @@ const AthleteList = ({trails, setTrails}) => {
             body: JSON.stringify(newAthlete),
           })
           .then(r => r.json())
-          .then((data) => handleAddAthleteToTrails(data))
+          .then((athlete) => handleAddAthleteToTrails(athlete))
     }
 
 
-    const handleAddAthleteToTrails = (data) => {
-      console.log("trails", trails)
+    const handleAddAthleteToTrails = (athlete) => {
+      console.log("data", athlete)
+      const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
+      const updateAthlete = [...thisTrailAthletes, athlete]
       const newTrails = trails.map((trail) => { 
-        if (trail.id === location.state.id)
-          return console.log("heyyo", {
+        if (trail.id === athlete.trail_id)
+          //return (trail.athletes.push(athlete))
+          return ({
             ...trail, 
-            athletes: athletes 
-          })
-        else {
-            return trail
+            athletes: [updateAthlete]
+          }); else {
+            return trail;
           }
       })
+      //setAthletes(updateAthlete)
       setTrails(newTrails)
     }
-    console.log("after submit athletes", athletes, "trails", trails)
+    console.log("trails", trails)
 
     //debugger
     //const trailId = trails.find(trail => trail.id === location.state.id)
@@ -122,7 +133,10 @@ const AthleteList = ({trails, setTrails}) => {
     
 
     if (trails.length > 0) {
-
+      /*setTimeout(() => {
+        console.log("Delayed for 1 second.");
+      }, "1000")*/
+      //const athletes = trails.find(trail => trail.id == location.state.id).athletes
       return(
         <div>   
             <h1> Athlete List {location.state.id} </h1>
@@ -130,8 +144,9 @@ const AthleteList = ({trails, setTrails}) => {
             {//<EditAthleteData/>
             }
             <Box sx={{ height: 630, width: '100%' }}>
-                <DataGrid
-                    rows = {trails.find(trail => trail.id == location.state.id).athletes}
+                <DataGrid 
+                    getRowId={(row) => row.id}
+                    rows={trails.find(trail => trail.id == location.state.id).athletes}
                     columns={columns}
                     pageSize={10}
                     rowsPerPageOptions={[10]}
