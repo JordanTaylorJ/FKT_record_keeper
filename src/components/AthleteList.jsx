@@ -5,6 +5,14 @@ import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
 import EditAthleteData from './EditAthleteData';
 
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+
 const AthleteList = ({trails, setTrails}) => {
 
 
@@ -13,7 +21,7 @@ const AthleteList = ({trails, setTrails}) => {
     console.log(location.state.id)
     const thisTrail = trails.find(trail => trail.id == location.state.id)
     console.log("This trail", thisTrail)
-    const [athletes, setAthletes] = useState([]);
+    const [athletes, setAthletes] = useState(thisTrail.athletes);
     console.log('athletes up here', athletes)
 
     const handleDeleteAthlete = (e) => {
@@ -21,7 +29,6 @@ const AthleteList = ({trails, setTrails}) => {
         method: 'DELETE',
       })
       .then((r) => r.json())
-      //.then((data) => console.log("THIS WAS DELETED", data))
       .then((deletedAthlete) => handleDeleteAthleteTrails(deletedAthlete))
     }
 
@@ -38,10 +45,9 @@ const AthleteList = ({trails, setTrails}) => {
             return trail;
           }
       })
-      console.log("after delete", updateAthletes)
-      setTrails(newTrails)
+      setAthletes(updateAthletes);
+      setTrails(newTrails);
     }
-    //Delete works!!  returns the seleted object. now find and delete and reset state
 
     const handleAddAthlete = (newAthlete) => {
         fetch("http://localhost:9292/athletes", {
@@ -62,7 +68,6 @@ const AthleteList = ({trails, setTrails}) => {
       const updateAthletes = [...thisTrailAthletes, athlete]
       const newTrails = trails.map((trail) => { 
         if (trail.id === athlete.trail_id)
-          //return (trail.athletes.push(athlete))
           return ({
             ...trail, 
             athletes: [updateAthletes]
@@ -70,8 +75,8 @@ const AthleteList = ({trails, setTrails}) => {
             return trail;
           }
       })
-      //setAthletes(updateAthlete)
-      setTrails(newTrails)
+      setAthletes(updateAthletes);
+      setTrails(newTrails);
     }
     console.log("trails", trails)
 
@@ -132,35 +137,87 @@ const AthleteList = ({trails, setTrails}) => {
           },
     ];
     
-    //const rows = trails.find(trail => trail.id == location.state.id).athletes
-    
 
-    if (trails.length > 0) {
-      /*setTimeout(() => {
-        console.log("Delayed for 1 second.");
-      }, "1000")*/
-      //const athletes = trails.find(trail => trail.id == location.state.id).athletes
-      return(
-        <div>   
-            <h1> Athlete List {location.state.id} </h1>
-            <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
-            {//<EditAthleteData/>
-            }
-            <Box sx={{ height: 630, width: '100%' }}>
-            
-                <DataGrid 
-                    getRowId={(row) => row.id}
-                    rows={athletes}
-                    //rows={trails.find(trail => trail.id == location.state.id).athletes}
-                    columns={columns}
-                    pageSize={10}
-                    rowsPerPageOptions={[10]}
-                />
-            </Box>
-        </div>
+    if (athletes.length > 0) {
+    
+      return (
+        <>
+        <h1> Athlete List {location.state.id} </h1>
+        <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
+        <TableContainer component={Paper}>
+          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+            <TableHead>
+              <TableRow>
+                <TableCell>Name</TableCell>
+                <TableCell align="right">Name</TableCell>
+                <TableCell align="right">Time</TableCell>
+                <TableCell align="right">Unsupported</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {athletes.map((athlete) => (
+                <TableRow
+                  key={athlete.id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                >
+                  <TableCell>
+                    <button
+                      value={athlete.id}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      style={{ marginLeft: 16 }}
+                      onClick={handleDeleteAthlete}
+                    > 
+                      x
+                    </button>
+                    <button
+                      value={athlete.id}
+                      variant="contained"
+                      color="primary"
+                      size="small"
+                      style={{ marginLeft: 16 }}
+                      //onClick={editAthleteData}
+                    > 
+                      Edit
+                    </button>
+                  </TableCell>
+                  <TableCell component="th" scope="row">{athlete.name}</TableCell>
+                  <TableCell align="right">{athlete.time}</TableCell>
+                  <TableCell align="right">{athlete.unsupported}</TableCell>
+                  
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer> 
+        </>
       )
-    }
-    else return null
+    } else return null
+    
+  
 }
 
 export default AthleteList;
+
+
+
+/*
+<div>   
+    <h1> Athlete List {location.state.id} </h1>
+    <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
+    {//<EditAthleteData/>
+    }
+    <Box sx={{ height: 630, width: '100%' }}>
+    
+        <DataGrid 
+            getRowId={(row) => row.id}
+            rows={athletes}
+            //rows={trails.find(trail => trail.id == location.state.id).athletes}
+            columns={columns}
+            pageSize={10}
+            rowsPerPageOptions={[10]}
+        />
+    </Box>
+</div>
+*/
