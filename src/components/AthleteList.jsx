@@ -34,8 +34,12 @@ const AthleteList = ({trails, setTrails}) => {
 
     const handleDeleteAthleteTrails = (deletedAthlete) => {
       console.log("i was deleted", deletedAthlete)
-      const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
-      const updateAthletes = thisTrailAthletes.map((athlete) => {if (athlete.id !== deletedAthlete.id) return athlete})
+      //const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
+      //const updateAthletes = athletes.map((athlete) => {if (athlete.id !== deletedAthlete.id) return athlete})
+      
+      
+      const updateAthletes = athletes.filter((athlete) => athlete.id !== deletedAthlete.id)
+      console.log("UpdateAthletes!!!", updateAthletes)
       const newTrails = trails.map((trail) => { 
         if (trail.id === deletedAthlete.trail_id)
           return ({
@@ -64,7 +68,7 @@ const AthleteList = ({trails, setTrails}) => {
 
     const handleAddAthleteToTrails = (athlete) => {
       console.log("data", athlete)
-      const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
+      //const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
       const updateAthletes = [...athletes, athlete]
       const newTrails = trails.map((trail) => { 
         if (trail.id === athlete.trail_id)
