@@ -1,10 +1,6 @@
 import React, {useState} from 'react';
 import NewAthlete from './NewAthlete';
 import { useLocation } from "react-router-dom";
-import Box from '@mui/material/Box';
-import { DataGrid } from '@mui/x-data-grid';
-import EditAthleteData from './EditAthleteData';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -18,11 +14,9 @@ const AthleteList = ({trails, setTrails}) => {
 
     let location = useLocation();
 
-    console.log(location.state.id)
     const thisTrail = trails.find(trail => trail.id == location.state.id)
-    console.log("This trail", thisTrail)
     const [athletes, setAthletes] = useState(thisTrail.athletes);
-    console.log('athletes up here', athletes)
+    
 
     const handleDeleteAthlete = (e) => {
       fetch(`http://localhost:9292/athletes/${e.target.value}`, {
@@ -33,13 +27,7 @@ const AthleteList = ({trails, setTrails}) => {
     }
 
     const handleDeleteAthleteTrails = (deletedAthlete) => {
-      console.log("i was deleted", deletedAthlete)
-      //const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
-      //const updateAthletes = athletes.map((athlete) => {if (athlete.id !== deletedAthlete.id) return athlete})
-      
-      
-      const updateAthletes = athletes.filter((athlete) => athlete.id !== deletedAthlete.id)
-      console.log("UpdateAthletes!!!", updateAthletes)
+      const updateAthletes = athletes.filter((athlete) => athlete.id !== deletedAthlete.id);
       const newTrails = trails.map((trail) => { 
         if (trail.id === deletedAthlete.trail_id)
           return ({
@@ -67,9 +55,7 @@ const AthleteList = ({trails, setTrails}) => {
 
 
     const handleAddAthleteToTrails = (athlete) => {
-      console.log("data", athlete)
-      //const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
-      const updateAthletes = [...athletes, athlete]
+      const updateAthletes = [...athletes, athlete];
       const newTrails = trails.map((trail) => { 
         if (trail.id === athlete.trail_id)
           return ({
@@ -81,66 +67,7 @@ const AthleteList = ({trails, setTrails}) => {
       })
       setAthletes(updateAthletes);
       setTrails(newTrails);
-    }
-    console.log("trails", trails)
-/*
-    const renderButtons = (params) => {
-      return (
-        <strong>
-            <button
-                value={params.row.id}
-                variant="contained"
-                color="primary"
-                size="small"
-                style={{ marginLeft: 16 }}
-                onClick={handleDeleteAthlete}
-            > 
-                x
-            </button>
-            <button
-                value={params.row.id}
-                variant="contained"
-                color="primary"
-                size="small"
-                style={{ marginLeft: 16 }}
-                //onClick={editAthleteData}
-            > 
-                Edit
-            </button>
-        </strong>
-      )
-    }
-
-    const columns = [
-        { 
-          field: 'id', 
-          headerName: 'Remove Athlete',  
-          width: 160,
-          sortable: false,
-          renderCell: renderButtons,
-          disableClickEventBubbling: true
-        },
-        {
-          field: 'name',
-          headerName: 'Name',
-          width: 170,
-          editable: true,
-        },
-        {
-          field: 'time',
-          headerName: 'Time',
-          type: 'number',
-          width: 110,
-          editable: true,
-        },
-        {
-          field: 'suported',
-          headerName: 'Style',
-          width: 110,
-          editable: true,
-          },
-    ];
-*/    
+    }  
 
     if (athletes.length > 0) {
     
@@ -199,29 +126,6 @@ const AthleteList = ({trails, setTrails}) => {
       )
     } else return null
     
-  
 }
 
 export default AthleteList;
-
-
-
-/*
-<div>   
-    <h1> Athlete List {location.state.id} </h1>
-    <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
-    {//<EditAthleteData/>
-    }
-    <Box sx={{ height: 630, width: '100%' }}>
-    
-        <DataGrid 
-            getRowId={(row) => row.id}
-            rows={athletes}
-            //rows={trails.find(trail => trail.id == location.state.id).athletes}
-            columns={columns}
-            pageSize={10}
-            rowsPerPageOptions={[10]}
-        />
-    </Box>
-</div>
-*/
