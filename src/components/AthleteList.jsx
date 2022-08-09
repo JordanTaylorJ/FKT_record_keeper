@@ -17,7 +17,7 @@ const AthleteList = ({trails, setTrails}) => {
 
 
     let location = useLocation();
-    
+
     console.log(location.state.id)
     const thisTrail = trails.find(trail => trail.id == location.state.id)
     console.log("This trail", thisTrail)
@@ -65,7 +65,7 @@ const AthleteList = ({trails, setTrails}) => {
     const handleAddAthleteToTrails = (athlete) => {
       console.log("data", athlete)
       const thisTrailAthletes = trails.find(trail => trail.id == location.state.id).athletes
-      const updateAthletes = [...thisTrailAthletes, athlete]
+      const updateAthletes = [...athletes, athlete]
       const newTrails = trails.map((trail) => { 
         if (trail.id === athlete.trail_id)
           return ({
@@ -79,7 +79,7 @@ const AthleteList = ({trails, setTrails}) => {
       setTrails(newTrails);
     }
     console.log("trails", trails)
-
+/*
     const renderButtons = (params) => {
       return (
         <strong>
@@ -136,7 +136,7 @@ const AthleteList = ({trails, setTrails}) => {
           editable: true,
           },
     ];
-    
+*/    
 
     if (athletes.length > 0) {
     
