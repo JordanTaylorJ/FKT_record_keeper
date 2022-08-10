@@ -1,5 +1,7 @@
 import React, {useState} from 'react';
 import NewAthlete from './NewAthlete';
+import EditAthleteList from './EditAthleteList';
+import ReadAthleteList from './ReadAthleteList';
 import { useLocation } from "react-router-dom";
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
@@ -9,6 +11,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
+
 const AthleteList = ({trails, setTrails}) => {
 
 
@@ -16,6 +19,7 @@ const AthleteList = ({trails, setTrails}) => {
 
     const thisTrail = trails.find(trail => trail.id == location.state.id)
     const [athletes, setAthletes] = useState(thisTrail.athletes);
+    const [editAthleteId, setEditAthelteId] = useState(null);
     
 
     const handleDeleteAthlete = (e) => {
@@ -69,8 +73,8 @@ const AthleteList = ({trails, setTrails}) => {
       setTrails(newTrails);
     }  
 
-    /*
-    const handleEditAthlete = (updateAthlete) => {
+    
+    const handleEditAthlete = (e, updateAthlete) => {
       fetch(`http://localhost:9292/athletes/${e.target.value}`, {
         method: 'PATCH',
         headers: { 
@@ -81,7 +85,7 @@ const AthleteList = ({trails, setTrails}) => {
       .then((r) => r.json())
       .then((updateAthlete) => handleDeleteAthleteTrails(updateAthlete))
     }
-    */
+    
     
     
       return (
@@ -89,55 +93,33 @@ const AthleteList = ({trails, setTrails}) => {
           <h1> Athlete List {location.state.id} </h1>
           <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
           {athletes.length > 0 && (
-          <TableContainer component={Paper}>
-            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-              <TableHead>
-                <TableRow>
-                  <TableCell></TableCell>
-                  <TableCell align="left">Name</TableCell>
-                  <TableCell align="right">Time</TableCell>
-                  <TableCell align="right">Unsupported</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {athletes.map((athlete) => (
-                  <TableRow
-                    key={athlete.id}
-                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                  >
-                    <TableCell>
-                      <button
-                        value={athlete.id}
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        style={{ marginLeft: 16 }}
-                        onClick={handleDeleteAthlete}
-                      > 
-                        x
-                      </button>
-                      <button
-                        value={athlete.id}
-                        variant="contained"
-                        color="primary"
-                        size="small"
-                        style={{ marginLeft: 16 }}
-                        //onClick={handleEditAthlete}
-                      > 
-                        Edit
-                      </button>
-                    </TableCell>
-                    <TableCell component="th" scope="row">{athlete.name}</TableCell>
-                    <TableCell align="right">{athlete.time}</TableCell>
-                    <TableCell align="right">
-                      {athlete.unsupported === true ? 'true' : 'false'}
-                    </TableCell>
-                    
-                  </TableRow>
-                ))}
-              </TableBody>
-            </Table>
-          </TableContainer> 
+            <form>
+              <TableContainer component={Paper}>
+                <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+                  <TableHead>
+                    <TableRow>
+                      <TableCell></TableCell>
+                      <TableCell align="left">Name</TableCell>
+                      <TableCell align="right">Time</TableCell>
+                      <TableCell align="right">Unsupported</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {athletes.map((athlete) => (
+                      <>
+                      { editAthleteId === athlete.id ? (
+                        <EditAthleteList /> 
+                      ) : ( 
+                        <ReadAthleteList athlete={athlete} handleDeleteAthlete={handleDeleteAthlete} />
+                      )}
+                        
+                        
+                      </>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer> 
+          </form>
           )}
         </>
       )
