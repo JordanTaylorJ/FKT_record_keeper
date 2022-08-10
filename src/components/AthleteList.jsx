@@ -69,6 +69,18 @@ const AthleteList = ({trails, setTrails}) => {
       setTrails(newTrails);
     }  
 
+    const handleEditAthlete = (updateAthlete) => {
+      fetch(`http://localhost:9292/athletes/${e.target.value}`, {
+        method: 'PATCH',
+        headers: { 
+          "Content-Type": "application/json", 
+        },
+        body: JSON.stringify(updateAthlete),
+      })
+      .then((r) => r.json())
+      .then((updateAthlete) => handleDeleteAthleteTrails(updateAthlete))
+    }
+
     if (athletes.length > 0) {
     
       return (
@@ -79,8 +91,8 @@ const AthleteList = ({trails, setTrails}) => {
           <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
             <TableHead>
               <TableRow>
-                <TableCell>Name</TableCell>
-                <TableCell align="right">Name</TableCell>
+                <TableCell></TableCell>
+                <TableCell align="left">Name</TableCell>
                 <TableCell align="right">Time</TableCell>
                 <TableCell align="right">Unsupported</TableCell>
               </TableRow>
@@ -108,7 +120,7 @@ const AthleteList = ({trails, setTrails}) => {
                       color="primary"
                       size="small"
                       style={{ marginLeft: 16 }}
-                      //onClick={editAthleteData}
+                      onClick={handleEditAthlete}
                     > 
                       Edit
                     </button>
