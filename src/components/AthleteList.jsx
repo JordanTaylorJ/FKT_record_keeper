@@ -20,7 +20,7 @@ const AthleteList = ({trails, setTrails}) => {
     const thisTrail = trails.find(trail => trail.id == location.state.id)
     const [athletes, setAthletes] = useState(thisTrail.athletes);
     const [editAthleteId, setEditAthelteId] = useState(null);
-    const [editAthleteData, setAthleteData] = useState({
+    const [editAthleteData, setEditAthleteData] = useState({
       name: "",
       time: "",
       trail_id: trailId,
@@ -93,9 +93,17 @@ const AthleteList = ({trails, setTrails}) => {
     }
     */
 
-    const handleEditAthlete = (e, athlete) => {
+    const handleEditAthleteClick = (e, athlete) => {
       e.preventDefault();
       setEditAthelteId(athlete.id);
+
+      const formValues = {
+        name: athlete.name,
+        time: athlete.time,
+        trail_id: athlete.trailId,
+        unsupported: athlete.unsupported
+      }
+      setEditAthleteData(formValues);
 
     }
 
@@ -107,7 +115,7 @@ const AthleteList = ({trails, setTrails}) => {
       const newAthleteData = {...editAthleteData }
       newAthleteData[athleteName] = athleteValue 
 
-      setAthleteData(newAthleteData)
+      setEditAthleteData(newAthleteData)
     }
     
     
@@ -133,11 +141,11 @@ const AthleteList = ({trails, setTrails}) => {
                     {athletes.map((athlete) => (
                       <>
                       { editAthleteId === athlete.id ? (
-                        <EditAthleteList /> 
+                        <EditAthleteList editAthleteData={editAthleteData} handleEditFormChange={handleEditFormChange}/> 
                       ) : ( 
                         <ReadAthleteList 
                           athlete={athlete} 
-                          handleEditAthlete={handleEditAthlete} 
+                          handleEditAthleteClick = {handleEditAthleteClick} 
                           handleDeleteAthlete={handleDeleteAthlete} 
                         />
                       )}

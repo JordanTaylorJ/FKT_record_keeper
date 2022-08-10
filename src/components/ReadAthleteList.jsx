@@ -3,7 +3,7 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 
-const ReadAthleteList = ({athlete, handleDeleteAthlete, handleEditAthlete}) => {
+const ReadAthleteList = ({athlete, handleDeleteAthlete, handleEditAthleteClick}) => {
 
     return(
         <TableRow
@@ -22,7 +22,7 @@ const ReadAthleteList = ({athlete, handleDeleteAthlete, handleEditAthlete}) => {
                     color="primary"
                     size="small"
                     style={{ marginLeft: 16 }}
-                    onClick={(e) => handleEditAthlete(e, athlete)}
+                    onClick={(e) => handleEditAthleteClick(e, athlete)}
                 > 
                 Edit
                 </button>
