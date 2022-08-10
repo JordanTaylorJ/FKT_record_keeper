@@ -69,6 +69,7 @@ const AthleteList = ({trails, setTrails}) => {
       setTrails(newTrails);
     }  
 
+    /*
     const handleEditAthlete = (updateAthlete) => {
       fetch(`http://localhost:9292/athletes/${e.target.value}`, {
         method: 'PATCH',
@@ -80,64 +81,69 @@ const AthleteList = ({trails, setTrails}) => {
       .then((r) => r.json())
       .then((updateAthlete) => handleDeleteAthleteTrails(updateAthlete))
     }
-
-    if (athletes.length > 0) {
+    */
+    
     
       return (
         <>
-        <h1> Athlete List {location.state.id} </h1>
-        <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
-            <TableHead>
-              <TableRow>
-                <TableCell></TableCell>
-                <TableCell align="left">Name</TableCell>
-                <TableCell align="right">Time</TableCell>
-                <TableCell align="right">Unsupported</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {athletes.map((athlete) => (
-                <TableRow
-                  key={athlete.id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                >
-                  <TableCell>
-                    <button
-                      value={athlete.id}
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      style={{ marginLeft: 16 }}
-                      onClick={handleDeleteAthlete}
-                    > 
-                      x
-                    </button>
-                    <button
-                      value={athlete.id}
-                      variant="contained"
-                      color="primary"
-                      size="small"
-                      style={{ marginLeft: 16 }}
-                      onClick={handleEditAthlete}
-                    > 
-                      Edit
-                    </button>
-                  </TableCell>
-                  <TableCell component="th" scope="row">{athlete.name}</TableCell>
-                  <TableCell align="right">{athlete.time}</TableCell>
-                  <TableCell align="right">{athlete.unsupported}</TableCell>
-                  
+          <h1> Athlete List {location.state.id} </h1>
+          <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
+          {athletes.length > 0 && (
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
+              <TableHead>
+                <TableRow>
+                  <TableCell></TableCell>
+                  <TableCell align="left">Name</TableCell>
+                  <TableCell align="right">Time</TableCell>
+                  <TableCell align="right">Unsupported</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer> 
+              </TableHead>
+              <TableBody>
+                {athletes.map((athlete) => (
+                  <TableRow
+                    key={athlete.id}
+                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                  >
+                    <TableCell>
+                      <button
+                        value={athlete.id}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        style={{ marginLeft: 16 }}
+                        onClick={handleDeleteAthlete}
+                      > 
+                        x
+                      </button>
+                      <button
+                        value={athlete.id}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        style={{ marginLeft: 16 }}
+                        //onClick={handleEditAthlete}
+                      > 
+                        Edit
+                      </button>
+                    </TableCell>
+                    <TableCell component="th" scope="row">{athlete.name}</TableCell>
+                    <TableCell align="right">{athlete.time}</TableCell>
+                    <TableCell align="right">
+                      {athlete.unsupported === true ? 'true' : 'false'}
+                    </TableCell>
+                    
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer> 
+          )}
         </>
       )
-    } else return null
+    
     
 }
+
 
 export default AthleteList;
