@@ -20,6 +20,12 @@ const AthleteList = ({trails, setTrails}) => {
     const thisTrail = trails.find(trail => trail.id == location.state.id)
     const [athletes, setAthletes] = useState(thisTrail.athletes);
     const [editAthleteId, setEditAthelteId] = useState(null);
+    const [editAthleteData, setAthleteData] = useState({
+      name: "",
+      time: "",
+      trail_id: trailId,
+      unsupported: false
+  })
     
 
     const handleDeleteAthlete = (e) => {
@@ -73,7 +79,7 @@ const AthleteList = ({trails, setTrails}) => {
       setTrails(newTrails);
     }  
 
-    
+    /*
     const handleEditAthlete = (e, updateAthlete) => {
       fetch(`http://localhost:9292/athletes/${e.target.value}`, {
         method: 'PATCH',
@@ -84,6 +90,24 @@ const AthleteList = ({trails, setTrails}) => {
       })
       .then((r) => r.json())
       .then((updateAthlete) => handleDeleteAthleteTrails(updateAthlete))
+    }
+    */
+
+    const handleEditAthlete = (e, athlete) => {
+      e.preventDefault();
+      setEditAthelteId(athlete.id);
+
+    }
+
+    const handleEditFormChange = (e) => {
+      e.preventDefault();
+      const athleteName = e.target.getAttribute("name")
+      const athleteValue = e.target.value 
+
+      const newAthleteData = {...editAthleteData }
+      newAthleteData[athleteName] = athleteValue 
+
+      setAthleteData(newAthleteData)
     }
     
     
@@ -102,6 +126,7 @@ const AthleteList = ({trails, setTrails}) => {
                       <TableCell align="left">Name</TableCell>
                       <TableCell align="right">Time</TableCell>
                       <TableCell align="right">Unsupported</TableCell>
+                      <TableCell align="right">Actions</TableCell>
                     </TableRow>
                   </TableHead>
                   <TableBody>
@@ -110,7 +135,11 @@ const AthleteList = ({trails, setTrails}) => {
                       { editAthleteId === athlete.id ? (
                         <EditAthleteList /> 
                       ) : ( 
-                        <ReadAthleteList athlete={athlete} handleDeleteAthlete={handleDeleteAthlete} />
+                        <ReadAthleteList 
+                          athlete={athlete} 
+                          handleEditAthlete={handleEditAthlete} 
+                          handleDeleteAthlete={handleDeleteAthlete} 
+                        />
                       )}
                         
                         

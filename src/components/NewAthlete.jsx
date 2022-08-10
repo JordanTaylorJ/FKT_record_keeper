@@ -4,7 +4,7 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
 
     const [newAthlete, setNewAthlete] = useState({
         name: "",
-        time: 0,
+        time: "",
         trail_id: trailId,
         unsupported: false
     });

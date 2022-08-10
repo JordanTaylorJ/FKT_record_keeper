@@ -3,14 +3,14 @@ import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
 
-const ReadAthleteList = ({athlete, handleDeleteAthlete}) => {
+const ReadAthleteList = ({athlete, handleDeleteAthlete, handleEditAthlete}) => {
 
     return(
         <TableRow
             key={athlete.id}
             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
         >
-            <TableCell component="th" scope="row">{athlete.name}</TableCell>
+            <TableCell align="left">{athlete.name}</TableCell>
             <TableCell align="right">{athlete.time}</TableCell>
             <TableCell align="right">
                 {athlete.unsupported === true ? 'true' : 'false'}
@@ -22,9 +22,9 @@ const ReadAthleteList = ({athlete, handleDeleteAthlete}) => {
                     color="primary"
                     size="small"
                     style={{ marginLeft: 16 }}
-                    onClick={handleDeleteAthlete}
+                    onClick={(e) => handleEditAthlete(e, athlete)}
                 > 
-                x
+                Edit
                 </button>
                 <button
                     value={athlete.id}
@@ -32,9 +32,9 @@ const ReadAthleteList = ({athlete, handleDeleteAthlete}) => {
                     color="primary"
                     size="small"
                     style={{ marginLeft: 16 }}
-                    //onClick={}
+                    onClick={handleDeleteAthlete}
                 > 
-                Edit
+                x
                 </button>
             </TableCell>
         </TableRow>
@@ -42,3 +42,5 @@ const ReadAthleteList = ({athlete, handleDeleteAthlete}) => {
 }
 
 export default ReadAthleteList;
+
+//component="th" scope="row"
