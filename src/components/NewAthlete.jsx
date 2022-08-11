@@ -9,10 +9,6 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
         unsupported: false
     });
 
-    const editingAthlete = (updateAthlete) => {
-        newAthlete(updateAthlete)
-    }
-
     const handleChange = (e) => {
         const target = e.target;
         const value = target.type === 'checkbox' ? target.checked : target.value;

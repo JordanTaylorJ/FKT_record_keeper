@@ -30,7 +30,6 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
                 <input 
                     type="checkbox" 
                     name="unsupported" 
-                    
                     value={editAthleteData.unsupported}
                     onChange={handleEditFormChange} 
                 />

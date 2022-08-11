@@ -133,21 +133,12 @@ const AthleteList = ({trails, setTrails}) => {
 
   const handleEditFormChange = (e) => {
     e.preventDefault();
-
     const target = e.target;
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
-    setEditAthleteData({...editAthleteData, [name]:value})
+    setEditAthleteData({...editAthleteData, [name]:value});
 
     console.log("is this change being handled??!!", editAthleteData);
-
-    //const athleteName = e.target.getAttribute("name")
-    //const athleteValue = e.target.value 
-
-    //const newAthleteData = {...editAthleteData }
-    //newAthleteData[athleteName] = athleteValue 
-    //console.log("this is the handleChange", newAthleteData)
-    //setEditAthleteData(newAthleteData)
   }
     
     
@@ -195,8 +186,6 @@ const AthleteList = ({trails, setTrails}) => {
       )}
     </>
   )
-    
-    
 }
 
 
