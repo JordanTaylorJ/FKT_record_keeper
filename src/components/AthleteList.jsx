@@ -113,9 +113,10 @@ const AthleteList = ({trails, setTrails}) => {
     console.log('updated athletes after form submit', updatedAthletes);
     setAthletes(updatedAthletes);
     setTrails(newTrails); 
+    setEditAthelteId(null);
   }
   
-
+  //prepopulates the editted athlete in the form
   const handleEditAthleteClick = (e, athlete) => {
     console.log("youre editting", athlete)
     e.preventDefault();
@@ -131,6 +132,7 @@ const AthleteList = ({trails, setTrails}) => {
 
   }
 
+  //handle change for edit form (updates state as user types)
   const handleEditFormChange = (e) => {
     e.preventDefault();
     const target = e.target;
@@ -141,14 +143,16 @@ const AthleteList = ({trails, setTrails}) => {
     console.log("is this change being handled??!!", editAthleteData);
   }
     
-    
+  const handleCancelEditClick = () => {
+    setEditAthelteId(null);
+  }
     
   return (
     <>
       <h1> Athlete List {location.state.id} </h1>
       <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
       {athletes.length > 0 && (
-        <form>
+        <form onSubmit={handleEditAthleteSubmit}>
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
               <TableHead>
@@ -167,6 +171,7 @@ const AthleteList = ({trails, setTrails}) => {
                     <EditAthleteList 
                       editAthleteData={editAthleteData} 
                       handleEditFormChange={handleEditFormChange}
+                      handleCancelEditClick={handleCancelEditClick}
                     /> 
                   ) : ( 
                     <ReadAthleteList 

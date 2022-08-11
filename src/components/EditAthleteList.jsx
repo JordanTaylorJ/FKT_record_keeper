@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import TableCell from '@mui/material/TableCell';
 import TableRow from '@mui/material/TableRow';
 
-const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
+const EditAthleteList = ({ editAthleteData, handleEditFormChange, handleCancelEditClick }) => {
 
     return (
         <TableRow
@@ -37,6 +37,9 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
             <TableCell>
                 <button type="submit">
                     Save
+                </button>
+                <button type="button" onClick={handleCancelEditClick}>
+                    Cancel
                 </button>
             </TableCell>
         </TableRow>
