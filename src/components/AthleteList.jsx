@@ -91,15 +91,33 @@ const AthleteList = ({trails, setTrails}) => {
       body: JSON.stringify(updateAthlete),
     })
     .then((r) => r.json())
-    .then((updateAthlete) => handleEditAthleteTrails(updateAthlete))
+    .then((updateAthlete) => console.log(updateAthlete))
+    //.then((updateAthlete) => handleEditAthleteTrails(updateAthlete))
   }
 
-  const handleEditAthleteTrails = () => {
-
+  const handleEditAthleteTrails = (updateAthlete) => {
+    const updatedAthletes = athletes.map((athlete) => {
+      if (athlete.id === updateAthlete.id) {
+        return updateAthlete;
+      } else return athlete;
+    })
+    const newTrails = trails.map((trail) => { 
+      if (trail.id === updateAthlete.trail_id)
+        return ({
+          ...trail, 
+          athletes: [updateAthlete]
+        }); else {
+          return trail;
+        }
+    })
+    console.log('updated athletes after form submit', updatedAthletes);
+    setAthletes(updatedAthletes);
+    setTrails(newTrails); 
   }
   
 
   const handleEditAthleteClick = (e, athlete) => {
+    console.log("youre editting", athlete)
     e.preventDefault();
     setEditAthelteId(athlete.id);
 
@@ -115,13 +133,21 @@ const AthleteList = ({trails, setTrails}) => {
 
   const handleEditFormChange = (e) => {
     e.preventDefault();
-    const athleteName = e.target.getAttribute("name")
-    const athleteValue = e.target.value 
 
-    const newAthleteData = {...editAthleteData }
-    newAthleteData[athleteName] = athleteValue 
+    const target = e.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
+    setEditAthleteData({...editAthleteData, [name]:value})
 
-    setEditAthleteData(newAthleteData)
+    console.log("is this change being handled??!!", editAthleteData);
+
+    //const athleteName = e.target.getAttribute("name")
+    //const athleteValue = e.target.value 
+
+    //const newAthleteData = {...editAthleteData }
+    //newAthleteData[athleteName] = athleteValue 
+    //console.log("this is the handleChange", newAthleteData)
+    //setEditAthleteData(newAthleteData)
   }
     
     

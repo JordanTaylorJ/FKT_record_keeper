@@ -20,7 +20,7 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
             <TableCell align="right">
                 <input 
                     type="text" 
-                    name="name" 
+                    name="time" 
                     placeholder="Enter a time..." 
                     value={editAthleteData.time}
                     onChange={handleEditFormChange} 
@@ -28,9 +28,9 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
             </TableCell>
             <TableCell align="right">
                 <input 
-                    type="text" 
-                    name="name" 
-                    placeholder="this should be a checkbox lol" 
+                    type="checkbox" 
+                    name="unsupported" 
+                    
                     value={editAthleteData.unsupported}
                     onChange={handleEditFormChange} 
                 />
