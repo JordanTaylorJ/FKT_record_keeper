@@ -13,6 +13,7 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
                     type="text" 
                     name="name" 
                     placeholder="Enter a name..." 
+                    value={editAthleteData.name}
                     onChange={handleEditFormChange} 
                 />
             </TableCell>
@@ -21,6 +22,7 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
                     type="text" 
                     name="name" 
                     placeholder="Enter a time..." 
+                    value={editAthleteData.time}
                     onChange={handleEditFormChange} 
                 />
             </TableCell>
@@ -29,8 +31,14 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange }) => {
                     type="text" 
                     name="name" 
                     placeholder="this should be a checkbox lol" 
+                    value={editAthleteData.unsupported}
                     onChange={handleEditFormChange} 
                 />
+            </TableCell>
+            <TableCell>
+                <button type="submit">
+                    Save
+                </button>
             </TableCell>
         </TableRow>
         

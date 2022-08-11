@@ -23,7 +23,7 @@ const AthleteList = ({trails, setTrails}) => {
     const [editAthleteData, setEditAthleteData] = useState({
       name: "",
       time: "",
-      trail_id: trailId,
+      trail_id: thisTrail,
       unsupported: false
   })
     
@@ -141,7 +141,10 @@ const AthleteList = ({trails, setTrails}) => {
                     {athletes.map((athlete) => (
                       <>
                       { editAthleteId === athlete.id ? (
-                        <EditAthleteList editAthleteData={editAthleteData} handleEditFormChange={handleEditFormChange}/> 
+                        <EditAthleteList 
+                          editAthleteData={editAthleteData} 
+                          handleEditFormChange={handleEditFormChange}
+                        /> 
                       ) : ( 
                         <ReadAthleteList 
                           athlete={athlete} 
