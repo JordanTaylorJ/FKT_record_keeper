@@ -81,18 +81,17 @@ const AthleteList = ({trails, setTrails}) => {
   }  
 
     
-  const handleEditAthleteSubmit = (e, updateAthlete) => {
+  const handleEditAthleteSubmit = (e) => {
     e.preventDefault();
-    fetch(`http://localhost:9292/athletes/${e.target.value}`, {
+    fetch(`http://localhost:9292/athletes/${editAthleteId}`, {
       method: 'PATCH',
       headers: { 
         "Content-Type": "application/json", 
       },
-      body: JSON.stringify(updateAthlete),
+      body: JSON.stringify(editAthleteData),
     })
     .then((r) => r.json())
-    .then((updateAthlete) => console.log(updateAthlete))
-    //.then((updateAthlete) => handleEditAthleteTrails(updateAthlete))
+    .then((updateAthlete) => handleEditAthleteTrails(updateAthlete))
   }
 
   const handleEditAthleteTrails = (updateAthlete) => {
@@ -110,26 +109,24 @@ const AthleteList = ({trails, setTrails}) => {
           return trail;
         }
     })
-    console.log('updated athletes after form submit', updatedAthletes);
     setAthletes(updatedAthletes);
     setTrails(newTrails); 
     setEditAthelteId(null);
   }
   
-  //prepopulates the editted athlete in the form
+  //prepopulates the edited athlete in the form
   const handleEditAthleteClick = (e, athlete) => {
-    console.log("youre editting", athlete)
     e.preventDefault();
     setEditAthelteId(athlete.id);
 
     const formValues = {
+      id: athlete.id,
       name: athlete.name,
       time: athlete.time,
       trail_id: athlete.trailId,
       unsupported: athlete.unsupported
     }
     setEditAthleteData(formValues);
-
   }
 
   //handle change for edit form (updates state as user types)
@@ -139,8 +136,6 @@ const AthleteList = ({trails, setTrails}) => {
     const value = target.type === 'checkbox' ? target.checked : target.value;
     const name = target.name;
     setEditAthleteData({...editAthleteData, [name]:value});
-
-    console.log("is this change being handled??!!", editAthleteData);
   }
     
   const handleCancelEditClick = () => {

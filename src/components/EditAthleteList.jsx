@@ -35,7 +35,7 @@ const EditAthleteList = ({ editAthleteData, handleEditFormChange, handleCancelEd
                 />
             </TableCell>
             <TableCell>
-                <button type="submit">
+                <button type="submit" value={editAthleteData.id}>
                     Save
                 </button>
                 <button type="button" onClick={handleCancelEditClick}>
