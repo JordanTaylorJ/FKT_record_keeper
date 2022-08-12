@@ -14,13 +14,11 @@ const NewAthlete = ({handleAddAthlete, trailId}) => {
         const value = target.type === 'checkbox' ? target.checked : target.value;
         const name = target.name;
         setNewAthlete({...newAthlete, [name]:value})
-        console.log(newAthlete)
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
         handleAddAthlete(newAthlete)
-        console.log("submit clicked inside NewAthlete", newAthlete)
         setNewAthlete({
             name: "",
             time: "",
