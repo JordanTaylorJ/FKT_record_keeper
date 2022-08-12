@@ -5,7 +5,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import NewTrail from './NewTrail';
 
 
-const TrailList = ({trails}) => {
+const TrailList = ({trails, setTrails}) => {
 
   const renderDetailsButton = (params) => {
     return (
@@ -78,11 +78,12 @@ const TrailList = ({trails}) => {
           body: JSON.stringify(newTrail),
         })
         .then(r => r.json())
-        .then((trail) => handleAddTrailToTrails(trail))
+        .then((newTrail) => handleAddTrailToTrails(newTrail))
   }
 
-  const handleAddTrailToTrails = () => {
-  
+  const handleAddTrailToTrails = (newTrail) => {
+    const newTrails = [...trails, newTrail];
+    setTrails(newTrails);
   }
 
     if (!trails) return <h2>Loading...</h2>

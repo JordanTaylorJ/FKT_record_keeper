@@ -6,8 +6,7 @@ const NewTrail = ({handleAddTrail}) => {
         name: "",
         location: "",
         distance: "",
-        elevation_gain: "", 
-        athletes: []
+        elevation_gain: ""
     })
 
     const handleChange = (e) => {
@@ -15,23 +14,18 @@ const NewTrail = ({handleAddTrail}) => {
         const value = target.value;
         const name = target.name;
         setNewTrail({...newTrail, [name]:value})
-    };
-    console.log(newTrail);
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        handleAddTrail(newTrail)
+        handleAddTrail(newTrail);
         setNewTrail({
             name: "",
             location: "",
             distance: "",
-            elevation_gain: "", 
-            athletes: []
-        })
-    };
-
-
-
+            elevation_gain: ""
+        });
+    }
 
     return(
         <div>

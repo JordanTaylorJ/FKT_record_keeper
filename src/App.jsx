@@ -29,9 +29,7 @@ function App() {
     }
   });
 
-  const [trails, setTrails] = useState([
-    //{athletes: []}
-  ]);
+  const [trails, setTrails] = useState([]);
 
   useEffect(() => {
       fetch('http://localhost:9292/trails')
@@ -45,7 +43,7 @@ function App() {
         <NavBar/>
         <Routes>
           <Route path="/" element={<Home/>}/>
-          <Route path="trails" element={<TrailList trails={trails}/>} />
+          <Route path="trails" element={<TrailList trails={trails} setTrails={setTrails}/>} />
           <Route path="trails/athletes" element={<AthleteList trails={trails} setTrails={setTrails}/>}/>
         </Routes>
       </Router>
