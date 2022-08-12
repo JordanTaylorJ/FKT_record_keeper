@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from "react-router-dom";
 import Box from '@mui/material/Box';
 import { DataGrid } from '@mui/x-data-grid';
+import NewTrail from './NewTrail';
 
 
 const TrailList = ({trails}) => {
@@ -68,11 +69,30 @@ const TrailList = ({trails}) => {
       navigate(path, { state: { id: e.target.value } } );
     }
 
+    const handleAddTrail = (newTrail) => {
+      fetch("http://localhost:9292/trails", {
+          method: 'POST',
+          headers: { 
+            "Content-Type": "application/json", 
+          },
+          body: JSON.stringify(newTrail),
+        })
+        .then(r => r.json())
+        .then((trail) => handleAddTrailToTrails(trail))
+  }
+
+  const handleAddTrailToTrails = () => {
+  
+  }
+
     if (!trails) return <h2>Loading...</h2>
 
     return(
       <div>
         <h1> Trail List </h1>
+        <NewTrail 
+          handleAddTrail={handleAddTrail}
+        />
         <Box sx={{ height: 630, width: '100%' }}>
             <DataGrid
                 rows={trails}
