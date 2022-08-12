@@ -19,8 +19,6 @@ function App() {
         main: '#9c9a56',
         dark: '#757446', 
       },
-      contrastThreshold: 3,
-      tonalOffset: 0.2,
     },
     components: {
       MuiButton: {

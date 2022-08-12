@@ -90,7 +90,7 @@ const TrailList = ({trails, setTrails}) => {
 
     return(
       <div>
-        <h1> Trail List </h1>
+        <h1> Trails </h1>
         <NewTrail 
           handleAddTrail={handleAddTrail}
         />

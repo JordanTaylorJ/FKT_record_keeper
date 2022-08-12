@@ -144,7 +144,7 @@ const AthleteList = ({trails, setTrails}) => {
     
   return (
     <>
-      <h1> Athlete List {location.state.id} </h1>
+      <h1> {thisTrail.name} Athlete List </h1>
       <NewAthlete handleAddAthlete={handleAddAthlete} trailId={location.state.id}/>
       {athletes.length > 0 && (
         <form onSubmit={handleEditAthleteSubmit}>
