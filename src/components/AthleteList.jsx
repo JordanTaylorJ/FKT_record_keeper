@@ -152,11 +152,10 @@ const AthleteList = ({trails, setTrails}) => {
             <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
               <TableHead>
                 <TableRow>
-                  <TableCell></TableCell>
                   <TableCell align="left">Name</TableCell>
                   <TableCell align="right">Time</TableCell>
                   <TableCell align="right">Unsupported</TableCell>
-                  <TableCell align="right">Actions</TableCell>
+                  <TableCell align="left">Actions</TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>

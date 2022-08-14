@@ -54,7 +54,7 @@ const TrailList = ({trails, setTrails}) => {
         },
         {
           field: 'elevation_gain',
-          headerName: 'Elevation Gain',
+          headerName: 'Elevation Gain (ft.)',
           type: 'number',
           sortable: true,
           width: 160,
