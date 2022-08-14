@@ -7,7 +7,7 @@ const NewTrail = ({handleAddTrail}) => {
         location: "",
         distance: "",
         elevation_gain: "",
-        athletes: {}
+        athletes: []
     })
 
     const handleChange = (e) => {
@@ -25,7 +25,7 @@ const NewTrail = ({handleAddTrail}) => {
             location: "",
             distance: "",
             elevation_gain: "", 
-            athletes: {}
+            athletes: []
         });
     }
 
