@@ -163,6 +163,7 @@ const AthleteList = ({trails, setTrails}) => {
                   <>
                   { editAthleteId === athlete.id ? (
                     <EditAthleteList 
+                      athlete={athlete} 
                       editAthleteData={editAthleteData} 
                       handleEditFormChange={handleEditFormChange}
                       handleCancelEditClick={handleCancelEditClick}
